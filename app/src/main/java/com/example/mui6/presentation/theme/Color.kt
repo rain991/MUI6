@@ -1,4 +1,4 @@
-package com.example.mui6.ui.theme
+package com.example.mui6.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -7,17 +7,14 @@ plugins {
 android {
     namespace = "com.example.mui6"
     compileSdk = 35
-
     defaultConfig {
         applicationId = "com.example.mui6"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -40,7 +37,8 @@ android {
 }
 
 dependencies {
-
+    implementation ("com.google.maps.android:maps-compose:6.4.1")
+    implementation ("com.google.android.gms:play-services-maps:19.2.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
