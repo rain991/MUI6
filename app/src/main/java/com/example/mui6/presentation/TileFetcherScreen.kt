@@ -1,5 +1,8 @@
 package com.example.mui6.presentation
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.model.CameraPosition
@@ -38,15 +42,25 @@ fun MapScreen() {
     var showMap by remember { mutableStateOf(false) }
     var latitude by remember { mutableStateOf("") }
     var longitude by remember { mutableStateOf("") }
-
+    val textColor by animateColorAsState(
+        targetValue = if (!showMap) MaterialTheme.colorScheme.onSurface else Color.Red,
+        animationSpec = tween(durationMillis = 600)
+    )
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)){
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
+        Column(modifier = Modifier.padding(innerPadding)) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Text(
                     text = "Tile previewer",
-                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.W500)
+                    color = textColor,
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.W500),
+                    modifier = Modifier.clickable {
+                        showMap = false
+                        latitude = ""
+                        longitude = ""
+                    }
                 )
             }
+            Spacer(modifier = Modifier.height(8.dp))
             if (!showMap) {
                 Column(
                     modifier = Modifier
